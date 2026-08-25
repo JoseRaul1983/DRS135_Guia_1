@@ -1,0 +1,21 @@
+# C# / .NET
+bin/
+obj/
+
+# Visual Studio
+.vs/
+
+# Python
+__pycache__/
+*.pyc
+
+# Entornos virtuales de Python
+.venv/
+venv/
+
+# Visual Studio Code
+.vscode/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
