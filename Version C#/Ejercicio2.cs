@@ -3,7 +3,7 @@
 // Clase con encapsulación para proteger los datos
 public class Empleado
 {
-    // Campos privados: no pueden ser modificados directamente
+    // Atributos privados: no pueden ser modificados directamente
     // desde fuera de la clase.
     private string _nombre;
     private int _edad;
@@ -21,15 +21,15 @@ public class Empleado
         get { return _edad; }
         set
         {
+            // La edad debe ser mayor que 0 y menor que 100
             if (value > 0 && value < 100)
             {
                 _edad = value;
             }
             else
             {
-                Console.WriteLine(
-                    $"[Error] La edad ingresada ({value}) no es válida. " +
-                    "Debe estar entre 1 y 99."
+                throw new ArgumentException(
+                    "La edad debe ser mayor que 0 y menor que 100."
                 );
             }
         }
@@ -50,32 +50,52 @@ public class Ejercicio2
         // Crear un objeto de tipo Empleado
         Empleado emp = new Empleado();
 
-        // Asignar datos válidos
-        Console.WriteLine("\nAsignando datos válidos...");
+        // Solicitar el nombre al usuario
+        Console.Write("\nIngrese el nombre del empleado: ");
+        emp.Nombre = Console.ReadLine();
 
-        emp.Nombre = "Juan Pérez";
-        emp.Edad = 28;
+        // Solicitar la edad al usuario
+        while (true)
+        {
+            Console.Write("Ingrese la edad del empleado: ");
 
-        Console.WriteLine(
-            $"Empleado registrado: Nombre = {emp.Nombre}, Edad = {emp.Edad}"
-        );
+            // Primero comprobamos que el usuario haya ingresado
+            // un número entero válido.
+            if (!int.TryParse(Console.ReadLine(), out int edad))
+            {
+                Console.WriteLine(
+                    "[Error] Debe ingresar un número entero."
+                );
 
-        // Intentar asignar una edad inválida
-        Console.WriteLine("\nIntentando asignar una edad de 105...");
-        emp.Edad = 105;
+                continue;
+            }
 
-        // Intentar asignar una edad negativa
-        Console.WriteLine("\nIntentando asignar una edad de -5...");
-        emp.Edad = -5;
+            try
+            {
+                // La propiedad Edad recibe el valor y se encarga
+                // de determinar si es válido.
+                emp.Edad = edad;
 
-        // Mostrar los datos finales
-        Console.WriteLine(
-            $"\nDatos finales del empleado: " +
-            $"Nombre = {emp.Nombre}, Edad = {emp.Edad}"
-        );
+                // Si no se produjo ningún error, la edad es válida.
+                break;
+            }
+            catch (ArgumentException ex)
+            {
+                // Mostrar el mensaje generado por la propiedad
+                // cuando la edad no cumple las condiciones.
+                Console.WriteLine($"[Error] {ex.Message}");
+            }
+        }
 
+        // Mostrar los datos del empleado
         Console.WriteLine("\n========================================");
-        Console.WriteLine("Presione ENTER para finalizar...");
+        Console.WriteLine("       EMPLEADO REGISTRADO");
+        Console.WriteLine("========================================");
+
+        Console.WriteLine($"Nombre: {emp.Nombre}");
+        Console.WriteLine($"Edad:   {emp.Edad}");
+
+        Console.WriteLine("\nPresione ENTER para finalizar...");
         Console.ReadLine();
     }
 }

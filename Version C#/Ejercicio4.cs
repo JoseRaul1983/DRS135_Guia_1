@@ -29,11 +29,19 @@ class SonidoAnimal
 {
     static void Main()
     { 
+        Console.Clear();
+
+        Console.WriteLine("========================================");
+        Console.WriteLine("       EJERCICIO 4: POLIMORFISMO");
+        Console.WriteLine("========================================");
+
         Animal animal;
         string opcion = "";
         while (opcion != "3")
         { 
-            Console.WriteLine("\n* Selección de Animal *");
+            Console.WriteLine("\n----------------------------------------");
+            Console.WriteLine("           MENÚ DEL EJERCICIO");
+            Console.WriteLine("----------------------------------------");
             Console.WriteLine("1. Perro");
             Console.WriteLine("2. Gato");
             Console.WriteLine("3. Salir");
